@@ -5,14 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebarClose = document.getElementById('sidebar-close');
 
     if (menuBtn && sidebarMenu && sidebarClose) {
-        // Toggle Sidebar
         menuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             menuBtn.classList.toggle('active');
             sidebarMenu.classList.toggle('active');
         });
 
-        // Close Sidebar
         const closeSidebar = () => {
             menuBtn.classList.remove('active');
             sidebarMenu.classList.remove('active');
@@ -20,12 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         sidebarClose.addEventListener('click', closeSidebar);
 
-        // Close when clicking sidebar links
         document.querySelectorAll('.sidebar-links a').forEach(link => {
             link.addEventListener('click', closeSidebar);
         });
 
-        // Close when clicking outside
         document.addEventListener('click', (e) => {
             if (!sidebarMenu.contains(e.target) && !menuBtn.contains(e.target)) {
                 closeSidebar();
@@ -127,31 +123,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         searchClose.addEventListener('click', closeSearch);
 
-        // Escape key to close
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeSearch();
             }
         });
 
-        // Search engine logic
         searchInput.addEventListener('input', () => {
             const query = searchInput.value.toLowerCase().trim();
             searchResults.innerHTML = '';
 
             if (query.length < 2) return;
 
-            // Search in headings and cards
             const searchableElements = [
-                { selector: '#about .about-left', title: 'Kimman? / Men haqimda', desc: 'Samariddin Mansurov haqidagi asosiy ma\'lumotlar.' },
-                { selector: '#about .about-right', title: 'Professional Profil', desc: 'Ishlash sohalari, tajriba va mas\'uliyatlar.' },
-                { selector: '#programming', title: 'Dasturlash ko\'nikmalari', desc: 'JavaScript, C++, Python, OOP, Asinxron dasturlash va boshqalar.' },
-                { selector: '#ecommerce', title: 'Veb & E-commerce ko\'nikmalari', desc: 'Shopify, Amazon Marketplace, Raqamli marketing va SEO.' },
-                { selector: '#business', title: 'Biznes ko\'nikmalari', desc: 'Savdo boshqaruvi, B2B, B2C va muzokara olib borish.' },
-                { selector: '#tools', title: 'Ishchi vositalar', desc: 'Git, GitHub, Visual Studio Code va Visual Studio.' },
-                { selector: '#directions', title: 'Faoliyat Yo\'nalishlarim', desc: 'Veb ilovalar, avtomatlashtirish va sun\'iy intellekt tizimlari.' },
-                { selector: '#principles', title: 'Ishlash Tamoyillarim', desc: 'Sifat, mas\'uliyat, halollik, intizom va doimiy rivojlanish.' },
-                { selector: '#goals', title: 'Maqsad va Shior', desc: 'Kelajakdagi maqsadlar va shaxsiy shior.' }
+                { selector: "#about .about-left", title: "Kimman? / Men haqimda / Who am I / Кто я", desc: "Samariddin Mansurov haqidagi asosiy ma'lumotlar." },
+                { selector: "#about .about-right", title: "Professional Profil", desc: "Ishlash sohalari, tajriba va mas'uliyatlar." },
+                { selector: "#programming", title: "Dasturlash ko'nikmalari", desc: "JavaScript, C++, Python, OOP, Asinxron dasturlash va boshqalar." },
+                { selector: "#ecommerce", title: "Veb & E-commerce ko'nikmalari", desc: "Shopify, Amazon Marketplace, Raqamli marketing va SEO." },
+                { selector: "#business", title: "Biznes ko'nikmalari", desc: "Savdo boshqaruvi, B2B, B2C va muzokara olib borish." },
+                { selector: "#tools", title: "Ishchi vositalar", desc: "Git, GitHub, Visual Studio Code va Visual Studio." },
+                { selector: "#directions", title: "Faoliyat Yo'nalishlarim", desc: "Veb ilovalar, avtomatlashtirish va sun'iy intellekt tizimlari." },
+                { selector: "#principles", title: "Ishlash Tamoyillarim", desc: "Sifat, mas'uliyat, halollik, intizom va doimiy rivojlanish." },
+                { selector: "#goals", title: "Maqsad va Shior", desc: "Kelajakdagi maqsadlar va shaxsiy shior." }
             ];
 
             const matches = searchableElements.filter(item => {
@@ -170,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.href = match.selector;
                 item.className = 'search-result-item';
                 item.innerHTML = `
-                    <h4>${match.title}</h4>
+                    <h4>${match.title.split(' / ')[currentLang === 'uz' ? 0 : currentLang === 'en' ? 2 : 3] || match.title.split(' / ')[0]}</h4>
                     <p>${match.desc}</p>
                 `;
                 item.addEventListener('click', (e) => {
@@ -214,158 +207,256 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 8. Dual Language Switcher (UZ <-> EN)
+    // 8. Multi-Language Dropdown & Translation Engine (UZ, EN, RU)
     const langBtn = document.getElementById('lang-btn');
+    const langDropdownWrapper = document.getElementById('lang-dropdown-wrapper');
+    const langDropdownMenu = document.getElementById('lang-dropdown-menu');
     let currentLang = 'uz';
+
+    if (langBtn && langDropdownWrapper) {
+        langBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            langDropdownWrapper.classList.toggle('active');
+        });
+
+        document.addEventListener('click', () => {
+            langDropdownWrapper.classList.remove('active');
+        });
+
+        langDropdownMenu.querySelectorAll('li').forEach(item => {
+            item.addEventListener('click', () => {
+                const selectedLang = item.getAttribute('data-lang');
+                currentLang = selectedLang;
+                langDropdownWrapper.classList.remove('active');
+                translatePage(selectedLang);
+            });
+        });
+    }
 
     const langData = {
         uz: {
-            langName: 'English',
-            navHome: 'Asosiy', navAbout: 'Men haqimda', navSkills: 'Ko\'nikmalar', navDir: 'Faoliyat', navPrin: 'Tamoyillar', navGoal: 'Maqsad & Shior', navContact: 'Aloqa',
-            greeting: '<i class="ri-shake-hands-line"></i> Assalomu alaykum',
-            role: 'Full Stack Dasturchi & <span class="highlight">E-commerce Mutaxassisi</span>',
-            summary: 'Insonlar va bizneslar uchun foydali, zamonaviy hamda ishonchli raqamli yechimlarni yaratish tarafdoriman. Dasturlashni muammolarni tahlil qilish va ularga samarali yechim topish san\'ati deb bilaman.',
-            btnContact: '<i class="ri-mail-send-line"></i> Aloqaga Chiqish',
-            btnProfile: '<i class="ri-user-line"></i> Profilni Ko\'rish',
+            langLabel: "O'zbekcha",
+            navHome: "Asosiy", navAbout: "Men haqimda", navSkills: "Ko'nikmalar", navDir: "Faoliyat", navPrin: "Tamoyillar", navGoal: "Maqsad & Shior", navContact: "Aloqa",
+            greeting: "<i class=\"ri-shake-hands-line\"></i> Assalomu alaykum",
+            role: "Full Stack Dasturchi & <span class=\"highlight\">E-commerce Mutaxassisi</span>",
+            summary: "Insonlar va bizneslar uchun foydali, zamonaviy hamda ishonchli raqamli yechimlarni yaratish tarafdoriman. Dasturlashni muammolarni tahlil qilish va ularga samarali yechim topish san'ati deb bilaman.",
+            btnContact: "<i class=\"ri-mail-send-line\"></i> Aloqaga Chiqish",
+            btnProfile: "<i class=\"ri-user-line\"></i> Profilni Ko'rish",
             
-            aboutTitle: 'Men haqimda & Profil',
-            aboutLeftHead: 'Kimman?',
-            aboutLeftP1: 'Men <strong>Samariddin Mansurov</strong> — zamonaviy texnologiyalar, dasturlash, elektron tijorat (E-commerce) va raqamli marketing yo‘nalishlariga qiziqadigan mutaxassisman.',
-            aboutLeftP2: 'Mening asosiy maqsadim — insonlar va bizneslar uchun foydali, zamonaviy hamda ishonchli raqamli yechimlarni yaratishdir.',
-            aboutLeftP3: 'Doimiy ravishda yangi texnologiyalarni o‘rganish, tajribamni oshirish va o‘zimni rivojlantirishga intilaman. Har bir loyiha men uchun yangi tajriba va yangi imkoniyat hisoblanadi.',
+            aboutTitle: "Men haqimda & Profil",
+            aboutLeftHead: "Kimman?",
+            aboutLeftP1: "Men <strong>Samariddin Mansurov</strong> — zamonaviy texnologiyalar, dasturlash, elektron tijorat (E-commerce) va raqamli marketing yo‘nalishlariga qiziqadigan mutaxassisman.",
+            aboutLeftP2: "Mening asosiy maqsadim — insonlar va bizneslar uchun foydali, zamonaviy hamda ishonchli raqamli yechimlarni yaratishdir.",
+            aboutLeftP3: "Doimiy ravishda yeni texnologiyalarni o'rganish, tajribamni oshirish va o'zimni rivojlantirishga intilaman. Har bir loyiha men uchun yeni tajriba va yeni imkoniyat hisoblanadi.",
             
-            aboutRightHead: 'Professional Profil',
-            aboutRightP1: 'Dasturiy ta\'minot ishlab chiqish, elektron tijorat va biznes jarayonlarini optimallashtirish yo‘nalishlarida faoliyat yuritaman.',
-            aboutRightP2: 'Texnik bilimlarimni biznes tajribasi bilan uyg‘unlashtirib, foydalanuvchilar uchun qulay, tezkor va sifatli mahsulotlar yaratishga e\'tibor beraman.',
-            aboutRightP3: 'Har qanday vazifaga mas\'uliyat, aniqlik va kreativ yondashuv bilan yondashaman. Mening fikrimcha, muvaffaqiyatning eng muhim omillari — intizom, doimiy o‘rganish va sifatga bo‘lgan e\'tibordir.',
+            aboutRightHead: "Professional Profil",
+            aboutRightP1: "Dasturiy ta'minot ishlab chiqish, elektron tijorat va biznes jarayonlarini optimallashtirish yo'nalishlarida faoliyat yuritaman.",
+            aboutRightP2: "Texnik bilimlarimni biznes tajribasi bilan uyg'unlashtirib, foydalanuvchilar uchun qulay, tezkor va sifatli mahsulotlar yaratishga e'tibor beraman.",
+            aboutRightP3: "Har qanday vazifaga mas'uliyat, aniqlik va kreativ yondashuv bilan yondashaman. Mening fikrimcha, muvaffaqiyatning eng muhim omillari — intizom, doimiy o'rganish va sifatga bo'lgan e'tibordir.",
 
-            skillsTitle: 'Asosiy Ko\'nikmalar',
-            skillsSubtitle: 'Bilim va tajribalarim yo\'nalishlar bo\'yicha',
-            tabProg: '<i class="ri-code-box-line"></i> Dasturlash',
-            tabEcom: '<i class="ri-shopping-cart-2-line"></i> Veb & E-commerce',
-            tabBus: '<i class="ri-line-chart-line"></i> Biznes',
-            tabTools: '<i class="ri-tools-line"></i> Ishchi Vositalar',
+            skillsTitle: "Asosiy Ko'nikmalar",
+            skillsSubtitle: "Bilim va tajribalarim yo'nalishlar bo'yicha",
+            tabProg: "<i class=\"ri-code-box-line\"></i> Dasturlash",
+            tabEcom: "<i class=\"ri-shopping-cart-2-line\"></i> Veb & E-commerce",
+            tabBus: "<i class=\"ri-line-chart-line\"></i> Biznes",
+            tabTools: "<i class=\"ri-tools-line\"></i> Ishchi Vositalar",
 
-            dirTitle: 'Faoliyat Yo\'nalishlarim',
-            dirSubtitle: 'Men ishlash va rivojlanishni maqsad qilgan asosiy sohalar',
-            dirCard1H: 'Veb ilovalar yaratish', dirCard1P: 'Zamonaviy, tezkor va xavfsiz Frontend hamda Backend tizimlarini loyihalash.',
-            dirCard2H: 'Avtomatlashtirish tizimlari', dirCard2P: 'Biznes va kundalik ishlarni yengillashtirish uchun scriptlar va tizimlar yaratish.',
-            dirCard3H: 'Elektron tijorat platformalari', dirCard3P: 'Shopify, Amazon va maxsus onlayn do\'konlar orqali savdoni boshqarish va integratsiya qilish.',
-            dirCard4H: 'Sun\'iy intellekt texnologiyalari', dirCard4P: 'AI yordamida ishlarni jadallashtirish va aqlli yechimlarni biznesga joriy qilish.',
-            dirCard5H: 'Biznesni raqamlashtirish', dirCard5P: 'An\'anaviy biznes jarayonlarini avtomatlashtirish va raqamli bozorga olib chiqish.',
-            dirCard6H: 'Dasturiy mahsulotlar', dirCard6P: 'Foydalanuvchilar ehtiyojlaridan kelib chiqqan holda maxsus dasturiy ta\'minotlar ishlab chiqish.',
-            dirCard7H: 'Zamonaviy IT yechimlari', dirCard7P: 'Eng so\'nggi texnologik standartlarga mos ravishda arxitektura va xizmatlarni yo\'lga qo\'yish.',
+            dirTitle: "Faoliyat Yo'nalishlarim",
+            dirSubtitle: "Men ishlash va rivojlanishni maqsad qilgan asosiy sohalar",
+            dirCard1H: "Veb ilovalar yaratish", dirCard1P: "Zamonaviy, tezkor va xavfsiz Frontend hamda Backend tizimlarini loyihalash.",
+            dirCard2H: "Avtomatlashtirish tizimlari", dirCard2P: "Biznes va kundalik ishlarni yengillashtirish uchun scriptlar va tizimlar yaratish.",
+            dirCard3H: "Elektron tijorat platformalari", dirCard3P: "Shopify, Amazon va maxsus onlayn do'konlar orqali savdoni boshqarish va integratsiya qilish.",
+            dirCard4H: "Sun'iy intellekt texnologiyalari", dirCard4P: "AI yordamida ishlarni jadallashtirish va aqlli yechimlarni biznesga joriy qilish.",
+            dirCard5H: "Biznesni raqamlashtirish", dirCard5P: "An'anaviy biznes jarayonlarini avtomatlashtirish va raqamli bozorga olib chiqish.",
+            dirCard6H: "Dasturiy mahsulotlar", dirCard6P: "Foydalanuvchilar ehtiyojlaridan kelib chiqqan holda maxsus dasturiy ta'minotlar ishlab chiqish.",
+            dirCard7H: "Zamonaviy IT yechimlari", dirCard7P: "Eng so'nggi texnologik standartlarga mos ravishda arxitektura va xizmatlarni yo'lga qo'yish.",
 
-            prinTitle: 'Ishlash Tamoyillarim',
-            prinSubtitle: 'Mening kasbiy va shaxsiy faoliyatim asoslangan qadriyatlar',
-            prinCard1H: 'Sifat', prinCard1P: 'Har bir loyihada eng yuqori sifat standartlariga rioya qilish.',
-            prinCard2H: 'Mas\'uliyat', prinCard2P: 'Topshirilgan vazifalarni o\'z vaqtida va to\'liq yakunlash.',
-            prinCard3H: 'Halollik', prinCard3P: 'Mijozlar, hamkorlar va jamoa a\'zolari bilan shaffof munosabat.',
-            prinCard4H: 'Intizom', prinCard4P: 'Muntazam mehnat, rejalashtirish va tizimli ishlash.',
-            prinCard5H: 'Doimiy rivojlanish', prinCard5P: 'Har kuni yangi bilim va ko\'nikmalarni o\'rganib borish.',
-            prinCard6H: 'Innovatsion fikrlash', prinCard6P: 'Muammolarga nostandart va ijodiy yondashuvlarni topish.',
-            prinCard7H: 'Jamoa bilan samarali ishlash', prinCard7P: 'Birgalikdagi g\'oyalar va fikr almashish orqali yuqori natijalar.',
-            prinCard8H: 'Natijaga yo‘naltirilganlik', prinCard8P: 'Faqatgina jarayon emas, balki aniq va o\'lchanadigan muvaffaqiyatga intilish.',
+            prinTitle: "Ishlash Tamoyillarim",
+            prinSubtitle: "Mening kasbiy va shaxsiy faoliyatim asoslangan qadriyatlar",
+            prinCard1H: "Sifat", prinCard1P: "Har bir loyihada eng yuqori sifat standartlariga rioya qilish.",
+            prinCard2H: "Mas'uliyat", prinCard2P: "Topshirilgan vazifalarni o'z vaqtida va to'liq yakunlash.",
+            prinCard3H: "Halollik", prinCard3P: "Mijozlar, hamkorlar va jamoa a'zolari bilan shaffof munosabat.",
+            prinCard4H: "Intizom", prinCard4P: "Muntazam mehnat, rejalashtirish va tizimli ishlash.",
+            prinCard5H: "Doimiy rivojlanish", prinCard5P: "Har kuni yeni bilim va ko'nikmalarni o'rganib borish.",
+            prinCard6H: "Innovatsion fikrlash", prinCard6P: "Muammolarga nostandart va ijodiy yondashuvlarni topish.",
+            prinCard7H: "Jamoa bilan samarali ishlash", prinCard7P: "Birgalikdagi g'oyalar va fikr almashish orqali yuqori natijalar.",
+            prinCard8H: "Natijaga yo‘naltirilganlik", prinCard8P: "Faqatgina jarayon emas, balki aniq va o'lchanadigan muvaffaqiyatga intilish.",
 
-            goalsLeftHead: 'Qiziqishlarim',
-            goalInt1: '<i class="ri-boxing-line"></i> Boks bilan shug\'ullanish',
-            goalInt2: '<i class="ri-robot-line"></i> Sun\'iy intellekt va yangi texnologiyalar',
-            goalInt3: '<i class="ri-book-open-line"></i> Biznes va startaplar haqida mutolaa',
-            goalInt4: '<i class="ri-graduation-cap-line"></i> Dasturlash bo‘yicha yangi bilimlarni egallash',
+            goalsLeftHead: "Qiziqishlarim",
+            goalInt1: "<i class=\"ri-boxing-line\"></i> Boks bilan shug'ullanish",
+            goalInt2: "<i class=\"ri-robot-line\"></i> Sun'iy intellekt va yeni texnologiyalar",
+            goalInt3: "<i class=\"ri-book-open-line\"></i> Biznes va startaplar haqida mutolaa",
+            goalInt4: "<i class=\"ri-graduation-cap-line\"></i> Dasturlash bo'yicha yeni bilimlarni egallash",
             
-            goalsRightHead: 'Mening Maqsadim',
-            goalP1: 'Kelajakdagi asosiy maqsadim — xalqaro darajadagi malakali dasturiy ta\'minot muhandisi va zamonaviy texnologiyalar sohasida muvaffaqiyatli tadbirkor bo‘lish.',
-            goalP2: 'Innovatsion g‘oyalarni amaliyotga tatbiq etish, insonlar va bizneslar uchun foydali bo‘lgan raqamli mahsulotlar yaratish hamda bilim va tajribamni doimiy ravishda oshirib borishni o\'z oldimga maqsad qilganman.',
-            goalP3: 'Texnologiyalar yordamida murakkab muammolarni sodda va samarali yechimlarga aylantirish, zamonaviy dasturiy mahsulotlar ishlab chiqish va xalqaro miqyosdagi loyihalarda ishtirok etish mening uzoq muddatli maqsadlarimdan biridir.',
+            goalsRightHead: "Mening Maqsadim",
+            goalP1: "Kelajakdagi asosiy maqsadim — xalqaro darajadagi malakali dasturiy ta'minot muhandisi va zamonaviy texnologiyalar sohasida muvaffaqiyatli tadbirkor bo'lish.",
+            goalP2: "Innovatsion g'oyalarni amaliyotga tatbiq etish, insonlar va bizneslar uchun foydali bo'lgan raqamli mahsulotlar yaratish hamda bilim va tajribamni doimiy ravishda oshirib borishni o'z oldimga maqsad qilganman.",
+            goalP3: "Texnologiyalar yordamida murakkab muammolarni sodda va samarali yechimlarga aylantirish, zamonaviy dasturiy mahsulotlar ishlab chiqish va xalqaro miqyosdagi loyihalarda ishtirok etish mening uzoq muddatli maqsadlarimdan biridir.",
             
-            mottoTitle: '— Shiorim',
-            mottoText: '"Bilim — imkoniyatlarni ochadigan kalit, intizom esa ularni muvaffaqiyatga aylantiradigan kuchdir."',
+            mottoTitle: "— Shiorim",
+            mottoText: "\"Bilim — imkoniyatlarni ochadigan kalit, intizom esa ularni muvaffaqiyatga aylantiradigan kuchdir.\"",
 
-            contactTitle: 'Bog\'lanish',
-            contactText: 'Yangi loyihalar, hamkorlik yoki biznesni raqamlashtirish bo‘yicha savollaringiz bo‘lsa, xabar qoldiring. Tez orada siz bilan bog\'lanaman.',
-            inputName: 'Ismingiz',
-            inputMsg: 'Xabaringiz...',
-            btnSubmit: '<i class="ri-send-plane-fill"></i> Xabarni Yuborish',
-            searchInput: 'Saytdan qidirish...'
+            contactTitle: "Bog'lanish",
+            contactText: "Yangi loyihalar, hamkorlik yoki biznesni raqamlashtirish bo'yicha savollaringiz bo'lsa, to'g'ridan-to'g'ri bog'laning yoki xabar qoldiring.",
+            inputName: "Ismingiz",
+            inputMsg: "Xabaringiz...",
+            btnSubmit: "<i class=\"ri-send-plane-fill\"></i> Xabarni Yuborish",
+            searchInput: "Saytdan qidirish...",
+            cLabelPhone: "Telefon",
+            cLabelTelegram: "Telegram",
+            cLabelMail: "E-pochta"
         },
         en: {
-            langName: 'O\'zbekcha',
-            navHome: 'Home', navAbout: 'About Me', navSkills: 'Skills', navDir: 'Activities', navPrin: 'Principles', navGoal: 'Goals & Motto', navContact: 'Contact',
-            greeting: '<i class="ri-shake-hands-line"></i> Welcome',
-            role: 'Full Stack Developer & <span class="highlight">E-commerce Specialist</span>',
-            summary: 'I focus on building functional, modern, and reliable digital solutions for people and businesses. I see programming as the art of analyzing problems and delivering highly efficient answers.',
-            btnContact: '<i class="ri-mail-send-line"></i> Contact Me',
-            btnProfile: '<i class="ri-user-line"></i> View Profile',
+            langLabel: "English",
+            navHome: "Home", navAbout: "About Me", navSkills: "Skills", navDir: "Activities", navPrin: "Principles", navGoal: "Goals & Motto", navContact: "Contact",
+            greeting: "<i class=\"ri-shake-hands-line\"></i> Welcome",
+            role: "Full Stack Developer & <span class=\"highlight\">E-commerce Specialist</span>",
+            summary: "I focus on building functional, modern, and reliable digital solutions for people and businesses. I see programming as the art of analyzing problems and delivering highly efficient answers.",
+            btnContact: "<i class=\"ri-mail-send-line\"></i> Contact Me",
+            btnProfile: "<i class=\"ri-user-line\"></i> View Profile",
 
-            aboutTitle: 'About Me & Profile',
-            aboutLeftHead: 'Who am I?',
-            aboutLeftP1: 'I am <strong>Samariddin Mansurov</strong> — a professional interested in modern technology, programming, E-commerce, and digital marketing.',
-            aboutLeftP2: 'My core goal is to establish useful, state-of-the-art, and trustworthy digital solutions for individuals and enterprises.',
-            aboutLeftP3: 'I continuously strive to learn new frameworks, enrich my skill set, and achieve personal growth. Every project represents an invaluable learning curve.',
+            aboutTitle: "About Me & Profile",
+            aboutLeftHead: "Who am I?",
+            aboutLeftP1: "I am <strong>Samariddin Mansurov</strong> — a professional interested in modern technology, programming, E-commerce, and digital marketing.",
+            aboutLeftP2: "My core goal is to establish useful, state-of-the-art, and trustworthy digital solutions for individuals and enterprises.",
+            aboutLeftP3: "I continuously strive to learn new frameworks, enrich my skill set, and achieve personal growth. Every project represents an invaluable learning curve.",
 
-            aboutRightHead: 'Professional Profile',
-            aboutRightP1: 'I specialize in software development, e-commerce management, and business process automation.',
-            aboutRightP2: 'By merging technical expertise with business acumen, I target creating user-friendly, optimized, and premium-quality products.',
-            aboutRightP3: 'I approach tasks with absolute responsibility, precision, and creativity. For me, key success factors are discipline, continuous learning, and attention to quality.',
+            aboutRightHead: "Professional Profile",
+            aboutRightP1: "I specialize in software development, e-commerce management, and business process automation.",
+            aboutRightP2: "By merging technical expertise with business acumen, I target creating user-friendly, optimized, and premium-quality products.",
+            aboutRightP3: "I approach tasks with absolute responsibility, precision, and creativity. For me, key success factors are discipline, continuous learning, and attention to quality.",
 
-            skillsTitle: 'Primary Skills',
-            skillsSubtitle: 'My technical expertise and capabilities by domain',
-            tabProg: '<i class="ri-code-box-line"></i> Programming',
-            tabEcom: '<i class="ri-shopping-cart-2-line"></i> Web & E-commerce',
-            tabBus: '<i class="ri-line-chart-line"></i> Business',
-            tabTools: '<i class="ri-tools-line"></i> Work Tools',
+            skillsTitle: "Primary Skills",
+            skillsSubtitle: "My technical expertise and capabilities by domain",
+            tabProg: "<i class=\"ri-code-box-line\"></i> Programming",
+            tabEcom: "<i class=\"ri-shopping-cart-2-line\"></i> Web & E-commerce",
+            tabBus: "<i class=\"ri-line-chart-line\"></i> Business",
+            tabTools: "<i class=\"ri-tools-line\"></i> Work Tools",
 
-            dirTitle: 'Fields of Activity',
-            dirSubtitle: 'Key directions where I actively build and grow my career',
-            dirCard1H: 'Web App Development', dirCard1P: 'Engineering scalable, responsive, and secure frontend and backend structures.',
-            dirCard2H: 'Automation Systems', dirCard2P: 'Writing scripts and software services to streamline everyday business processes.',
-            dirCard3H: 'E-commerce Platforms', dirCard3P: 'Managing and integrating shops via Shopify, Amazon, and customized gateways.',
-            dirCard4H: 'AI & Data Integration', dirCard4P: 'Harnessing modern artificial intelligence modules to empower business logic.',
-            dirCard5H: 'Business Digitization', dirCard5P: 'Transitioning conventional operations into modern automated digital portals.',
-            dirCard6H: 'Software Product Dev', dirCard6P: 'Crafting tailored desktop or network applications targeted at solving specific user needs.',
-            dirCard7H: 'State-of-the-Art Solutions', dirCard7P: 'Establishing architectures aligned with the latest global technological standards.',
+            dirTitle: "Fields of Activity",
+            dirSubtitle: "Key directions where I actively build and grow my career",
+            dirCard1H: "Web App Development", dirCard1P: "Engineering scalable, responsive, and secure frontend and backend structures.",
+            dirCard2H: "Automation Systems", dirCard2P: "Writing scripts and software services to streamline everyday business processes.",
+            dirCard3H: "E-commerce Platforms", dirCard3P: "Managing and integrating shops via Shopify, Amazon, and customized gateways.",
+            dirCard4H: "AI & Data Integration", dirCard4P: "Harnessing modern artificial intelligence modules to empower business logic.",
+            dirCard5H: "Business Digitization", dirCard5P: "Transitioning conventional operations into modern automated digital portals.",
+            dirCard6H: "Software Product Dev", dirCard6P: "Crafting tailored desktop or network applications targeted at solving specific user needs.",
+            dirCard7H: "State-of-the-Art Solutions", dirCard7P: "Establishing architectures aligned with the latest global technological standards.",
 
-            prinTitle: 'Core Principles',
-            prinSubtitle: 'Key values that steer my professional and personal workflow',
-            prinCard1H: 'Quality', prinCard1P: 'Adhering to high-quality code and design benchmarks in all assignments.',
-            prinCard2H: 'Responsibility', prinCard2P: 'Completing assignments with absolute punctuality and complete delivery.',
-            prinCard3H: 'Transparency', prinCard3P: 'Maintaining honest, clear, and open relationships with clients and partners.',
-            prinCard4H: 'Discipline', prinCard4P: 'Sustaining a consistent work schedule, structured planning, and system logic.',
-            prinCard5H: 'Constant Evolution', prinCard5P: 'Pursuing learning paths and training modules to upgrade skills daily.',
-            prinCard6H: 'Innovative Mentality', prinCard6P: 'Brainstorming creative and out-of-the-box approaches to solve problems.',
-            prinCard7H: 'Team Collaboration', prinCard7P: 'Synthesizing ideas with group members to yield stellar project products.',
-            prinCard8H: 'Result-Oriented', prinCard8P: 'Aiming not just at starting activities, but finishing them with measurable milestones.',
+            prinTitle: "Core Principles",
+            prinSubtitle: "Key values that steer my professional and personal workflow",
+            prinCard1H: "Quality", prinCard1P: "Adhering to high-quality code and design benchmarks in all assignments.",
+            prinCard2H: "Responsibility", prinCard2P: "Completing assignments with absolute punctuality and complete delivery.",
+            prinCard3H: "Transparency", prinCard3P: "Maintaining honest, clear, and open relationships with clients and partners.",
+            prinCard4H: "Discipline", prinCard4P: "Sustaining a consistent work schedule, structured planning, and system logic.",
+            prinCard5H: "Constant Evolution", prinCard5P: "Pursuing learning paths and training modules to upgrade skills daily.",
+            prinCard6H: "Innovative Mentality", prinCard6P: "Brainstorming creative and out-of-the-box approaches to solve problems.",
+            prinCard7H: "Team Collaboration", prinCard7P: "Synthesizing ideas with group members to yield stellar project products.",
+            prinCard8H: "Result-Oriented", prinCard8P: "Aiming not just at starting activities, but finishing them with measurable milestones.",
 
-            goalsLeftHead: 'My Interests',
-            goalInt1: '<i class="ri-boxing-line"></i> Boxing & physical fitness',
-            goalInt2: '<i class="ri-robot-line"></i> AI developments & gadgets',
-            goalInt3: '<i class="ri-book-open-line"></i> Reading startup & business case studies',
-            goalInt4: '<i class="ri-graduation-cap-line"></i> Learning advanced software paradigms',
+            goalsLeftHead: "My Interests",
+            goalInt1: "<i class=\"ri-boxing-line\"></i> Boxing & physical fitness",
+            goalInt2: "<i class=\"ri-robot-line\"></i> AI developments & gadgets",
+            goalInt3: "<i class=\"ri-book-open-line\"></i> Reading startup & business case studies",
+            goalInt4: "<i class=\"ri-graduation-cap-line\"></i> Learning advanced software paradigms",
 
-            goalsRightHead: 'My Main Goal',
-            goalP1: 'My primary long-term milestone is to become a top-tier international software engineer and a tech entrepreneur.',
-            goalP2: 'I focus on transforming innovative concepts into functional tools, building user-friendly systems, and evolving my skills continuously.',
-            goalP3: 'Solving challenging tasks through neat, structured logic and working on high-impact global projects are key parts of my roadmap.',
+            goalsRightHead: "My Main Goal",
+            goalP1: "My primary long-term milestone is to become a top-tier international software engineer and a tech entrepreneur.",
+            goalP2: "I focus on transforming innovative concepts into functional tools, building user-friendly systems, and evolving my skills continuously.",
+            goalP3: "Solving challenging tasks through neat, structured logic and working on high-impact global projects are key parts of my roadmap.",
 
-            mottoTitle: '— My Motto',
-            mottoText: '"Knowledge is the key that opens opportunities, while discipline is the power that turns them into success."',
+            mottoTitle: "— My Motto",
+            mottoText: "\"Knowledge is the key that opens opportunities, while discipline is the power that turns them into success.\"",
 
-            contactTitle: 'Get in Touch',
-            contactText: 'If you have ideas for new projects, partnerships, or business digitization plans, leave a message. I will contact you shortly.',
-            inputName: 'Your Name',
-            inputMsg: 'Your Message...',
-            btnSubmit: '<i class="ri-send-plane-fill"></i> Send Message',
-            searchInput: 'Search site...'
+            contactTitle: "Get in Touch",
+            contactText: "If you have ideas for new projects, partnerships, or business digitization plans, leave a message or contact me directly.",
+            inputName: "Your Name",
+            inputMsg: "Your Message...",
+            btnSubmit: "<i class=\"ri-send-plane-fill\"></i> Send Message",
+            searchInput: "Search site...",
+            cLabelPhone: "Phone",
+            cLabelTelegram: "Telegram",
+            cLabelMail: "E-mail"
+        },
+        ru: {
+            langLabel: "Русский",
+            navHome: "Главная", navAbout: "О себе", navSkills: "Навыки", navDir: "Деятельность", navPrin: "Принципы", navGoal: "Цель & Девиз", navContact: "Контакты",
+            greeting: "<i class=\"ri-shake-hands-line\"></i> Приветствую",
+            role: "Full Stack Разработчик & <span class=\"highlight\">Специалист по E-commerce</span>",
+            summary: "Я создаю полезные, современные и надежные цифровые решения для людей и бизнеса. Считаю программирование не просто написанием кода, а искусством анализа проблем и поиска эффективных решений.",
+            btnContact: "<i class=\"ri-mail-send-line\"></i> Связаться",
+            btnProfile: "<i class=\"ri-user-line\"></i> Посмотреть профиль",
+
+            aboutTitle: "О себе & Профиль",
+            aboutLeftHead: "Кто я?",
+            aboutLeftP1: "Я <strong>Самариддин Мансуров</strong> — специалист, интересующийся современными технологиями, программированием, электронной коммерцией (E-commerce) и цифровым маркетингом.",
+            aboutLeftP2: "Моя главная цель — создавать полезные, современные и надежные цифровые решения для людей и бизнеса.",
+            aboutLeftP3: "Я постоянно стремлюсь изучать новые технологии, повышать квалификацию и развиваться. Каждый проект для меня — это новый опыт и новые возможности.",
+
+            aboutRightHead: "Профессиональный профиль",
+            aboutRightP1: "Я работаю в сфере разработки программного обеспечения, электронной коммерции и оптимизации бизнес-процессов.",
+            aboutRightP2: "Объединяя технические знания с бизнес-опытом, я создаю удобные, быстрые и качественные продукты для пользователей.",
+            aboutRightP3: "К любой задаче подхожу с ответственностью, точностью и креативом. На мой взгляд, главными факторами успеха являются дисциплина, постоянное обучение и внимание к качеству.",
+
+            skillsTitle: "Основные навыки",
+            skillsSubtitle: "Мои знания и практический опыт по направлениям",
+            tabProg: "<i class=\"ri-code-box-line\"></i> Программирование",
+            tabEcom: "<i class=\"ri-shopping-cart-2-line\"></i> Веб & E-commerce",
+            tabBus: "<i class=\"ri-line-chart-line\"></i> Бизнес",
+            tabTools: "<i class=\"ri-tools-line\"></i> Рабочий Инструмент",
+
+            dirTitle: "Направления работы",
+            dirSubtitle: "Основные сферы, в которых я развиваюсь и создаю продукты",
+            dirCard1H: "Создание веб-приложений", dirCard1P: "Проектирование современных, быстрых и безопасных Frontend и Backend систем.",
+            dirCard2H: "Системы автоматизации", dirCard2P: "Создание скриптов и систем для упрощения бизнеса и повседневных задач.",
+            dirCard3H: "Электронная коммерция", dirCard3P: "Управление и интеграция продаж через Shopify, Amazon и интернет-магазины.",
+            dirCard4H: "Искусственный интеллект", dirCard4P: "Внедрение умных решений в бизнес с использованием искусственного интеллекта.",
+            dirCard5H: "Цифровизация бизнеса", dirCard5P: "Автоматизация традиционных бизнес-процессов и вывод бизнеса на цифровой рынок.",
+            dirCard6H: "Программные продукты", dirCard6P: "Разработка специализированного ПО с учетом потребностей пользователей.",
+            dirCard7H: "Современные IT-решения", dirCard7P: "Запуск архитектуры и сервисов в соответствии с последними технологическими стандартами.",
+
+            prinTitle: "Принципы работы",
+            prinSubtitle: "Ценности, на которых строится моя профессиональная деятельность",
+            prinCard1H: "Качество", prinCard1P: "Соблюдение высочайших стандартов качества в каждом поекте.",
+            prinCard2H: "Ответственность", prinCard2P: "Своевременное и полное выполнение поставленных задач.",
+            prinCard3H: "Честность", prinCard3P: "Прозрачные отношения с клиентами, партнерами и коллегами.",
+            prinCard4H: "Дисциплина", prinCard4P: "Регулярный труд, планирование и системная работа.",
+            prinCard5H: "Постоянное развитие", prinCard5P: "Ежедневное изучение новых знаний и навыков.",
+            prinCard6H: "Инновационное мышление", prinCard6P: "Поиск нестандартных и творческих подходов к решению задач.",
+            prinCard7H: "Работа в команде", prinCard7P: "Достижение высоких результатов благодаря совместным идеям.",
+            prinCard8H: "Ориентация на результат", prinCard8P: "Стремление к четкому успеху, а не просто к процессу.",
+
+            goalsLeftHead: "Мои интересы",
+            goalInt1: "<i class=\"ri-boxing-line\"></i> Занятия боксом",
+            goalInt2: "<i class=\"ri-robot-line\"></i> Искусственный интеллект и IT-технологии",
+            goalInt3: "<i class=\"ri-book-open-line\"></i> Чтение книг о бизнесе и стартапах",
+            goalInt4: "<i class=\"ri-graduation-cap-line\"></i> Изучение новых методов программирования",
+
+            goalsRightHead: "Моя главная цель",
+            goalP1: "Моя главная цель на будущее — стать высококвалифицированным инженером-программистом международного уровня и успешным предпринимателем в сфере современных технологий.",
+            goalP2: "Я ставлю перед собой цель претворять в жизнь инновационные идеи, создавать полезные цифровые продукты для людей и бизнеса, постоянно повышать свои знания и опыт.",
+            goalP3: "Превращение сложных проблем в простые и эффективные решения с помощью технологий, разработка ПО и участие в международных проектах — одна из моих долгосрочных целей.",
+
+            mottoTitle: "— Мой девиз",
+            mottoText: "\"Знание — это ключ, открывающий возможности, а дисциплина — это сила, превращающая их в успех.\"",
+
+            contactTitle: "Контакты",
+            contactText: "Если у вас есть вопросы по новым проектам, сотрудничеству или цифровизации бизнеса, оставьте сообщение или свяжитесь напрямую.",
+            inputName: "Ваше имя",
+            inputMsg: "Ваше сообщение...",
+            btnSubmit: "<i class=\"ri-send-plane-fill\"></i> Отправить сообщение",
+            searchInput: "Поиск по сайту...",
+            cLabelPhone: "Телефон",
+            cLabelTelegram: "Телеграм",
+            cLabelMail: "Эл. почта"
         }
     };
 
     const translatePage = (lang) => {
         const dict = langData[lang];
         
-        // Lang button label
-        langBtn.querySelector('span').textContent = dict.langName;
+        langBtn.querySelector('span').textContent = dict.langLabel;
 
-        // Navbar Links inside Sidebar
         const sidebarLinks = document.querySelectorAll('.sidebar-links a');
         if (sidebarLinks.length >= 7) {
             sidebarLinks[0].textContent = dict.navHome;
@@ -377,14 +468,12 @@ document.addEventListener('DOMContentLoaded', () => {
             sidebarLinks[6].textContent = dict.navContact;
         }
 
-        // Hero Section
         document.querySelector('.hero-text .greeting').innerHTML = dict.greeting;
         document.querySelector('.hero-text h2').innerHTML = dict.role;
         document.querySelector('.hero-text .summary').textContent = dict.summary;
         document.querySelector('.hero-text .cta-group a:nth-child(1)').innerHTML = dict.btnContact;
         document.querySelector('.hero-text .cta-group a:nth-child(2)').innerHTML = dict.btnProfile;
 
-        // About Section
         document.querySelector('#about .section-title').textContent = dict.aboutTitle;
         document.querySelector('#about .about-left h3').textContent = dict.aboutLeftHead;
         const leftPs = document.querySelectorAll('#about .about-left p');
@@ -398,7 +487,6 @@ document.addEventListener('DOMContentLoaded', () => {
         rightPs[1].innerHTML = dict.aboutRightP2;
         rightPs[2].innerHTML = dict.aboutRightP3;
 
-        // Skills Section
         document.querySelector('#skills .section-title').textContent = dict.skillsTitle;
         document.querySelector('#skills .section-subtitle').textContent = dict.skillsSubtitle;
         const tabButtons = document.querySelectorAll('.tab-btn');
@@ -407,7 +495,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tabButtons[2].innerHTML = dict.tabBus;
         tabButtons[3].innerHTML = dict.tabTools;
 
-        // Directions Section
         document.querySelector('#directions .section-title').textContent = dict.dirTitle;
         document.querySelector('#directions .section-subtitle').textContent = dict.dirSubtitle;
         const dirCards = document.querySelectorAll('.direction-card');
@@ -426,7 +513,6 @@ document.addEventListener('DOMContentLoaded', () => {
         dirCards[6].querySelector('h3').textContent = dict.dirCard7H;
         dirCards[6].querySelector('p').textContent = dict.dirCard7P;
 
-        // Principles Section
         document.querySelector('#principles .section-title').textContent = dict.prinTitle;
         document.querySelector('#principles .section-subtitle').textContent = dict.prinSubtitle;
         const prinCards = document.querySelectorAll('.principle-card');
@@ -447,7 +533,6 @@ document.addEventListener('DOMContentLoaded', () => {
         prinCards[7].querySelector('h3').textContent = dict.prinCard8H;
         prinCards[7].querySelector('p').textContent = dict.prinCard8P;
 
-        // Goals & Interests Section
         document.querySelector('#goals .interests-box h3').textContent = dict.goalsLeftHead;
         const intLis = document.querySelectorAll('.interests-list li');
         intLis[0].innerHTML = dict.goalInt1;
@@ -461,25 +546,20 @@ document.addEventListener('DOMContentLoaded', () => {
         goalPs[1].textContent = dict.goalP2;
         goalPs[2].textContent = dict.goalP3;
 
-        // Motto Banner
         document.querySelector('.motto-banner blockquote').textContent = dict.mottoText;
         document.querySelector('.motto-banner cite').textContent = dict.mottoTitle;
 
-        // Contact Section
         document.querySelector('#contact .section-title').textContent = dict.contactTitle;
         document.querySelector('#contact .contact-text').textContent = dict.contactText;
         document.querySelector('#name').placeholder = dict.inputName;
         document.querySelector('#message').placeholder = dict.inputMsg;
         document.querySelector('#contact-form button').innerHTML = dict.btnSubmit;
 
-        // Search Input placeholder
+        const infoCards = document.querySelectorAll('.contact-info-card');
+        infoCards[0].querySelector('.c-label').textContent = dict.cLabelPhone;
+        infoCards[1].querySelector('.c-label').textContent = dict.cLabelTelegram;
+        infoCards[2].querySelector('.c-label').textContent = dict.cLabelMail;
+
         document.getElementById('search-input').placeholder = dict.searchInput;
     };
-
-    if (langBtn) {
-        langBtn.addEventListener('click', () => {
-            currentLang = currentLang === 'uz' ? 'en' : 'uz';
-            translatePage(currentLang);
-        });
-    }
 });

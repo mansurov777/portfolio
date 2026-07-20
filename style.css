@@ -785,6 +785,69 @@ header.scrolled .navbar {
     justify-content: center;
 }
 
+/* Contact Grid & Card Styles */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.contact-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-info-card {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid var(--glass-border);
+    transition: var(--transition-medium);
+}
+
+.contact-info-card:hover {
+    background: rgba(139, 92, 246, 0.05);
+    border-color: rgba(139, 92, 246, 0.2);
+    transform: translateY(-3px);
+}
+
+.c-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(139, 92, 246, 0.08);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-accent);
+    font-size: 1.5rem;
+    border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.contact-info-card:hover .c-icon {
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-accent));
+    color: white;
+    border-color: transparent;
+}
+
+.c-details .c-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.c-details h4 {
+    font-size: 1.1rem;
+    color: white;
+    font-weight: 600;
+}
+
 /* Footer */
 .footer {
     padding: 2.5rem 0;
@@ -849,6 +912,62 @@ header.scrolled .navbar {
     display: flex;
     align-items: center;
     gap: 0.8rem;
+}
+
+.lang-dropdown-wrapper {
+    position: relative;
+}
+
+.lang-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: rgba(10, 10, 20, 0.95);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    width: 140px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 1200;
+}
+
+.lang-dropdown-wrapper.active .lang-dropdown-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.lang-dropdown-menu li {
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: var(--transition-fast);
+}
+
+.lang-dropdown-menu li:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.lang-dropdown-menu li img {
+    width: 18px;
+    height: 12px;
+    object-fit: cover;
+    border-radius: 2px;
 }
 
 .lang-btn, .search-btn, .menu-btn {
@@ -1119,6 +1238,10 @@ header.scrolled .navbar {
     .img-box {
         width: 320px;
         height: 320px;
+    }
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 }
 
