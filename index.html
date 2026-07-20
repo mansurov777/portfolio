@@ -3,73 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Samariddin Mansurov - Professional Frontend Dasturchi. Mening shaxsiy portfoliom.">
-    <title>Samariddin Mansurov | Professional Developer</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Samariddin Mansurov | Full Stack Developer & E-commerce Specialist</title>
+    <meta name="description" content="Samariddin Mansurov - Full Stack Dasturchi va E-commerce Mutaxassisi. Shopify, Amazon Marketplace, JavaScript, C++ va Biznesni raqamlashtirish bo'yicha professional yechimlar.">
+    <meta name="keywords" content="Samariddin Mansurov, Mansurov Samariddin, Full Stack Developer, E-commerce, Shopify, Amazon Marketplace, Web Developer, Web Designer, Uzbekistan IT, Telegram Bot, Python, C++, JavaScript">
+    <meta name="author" content="Samariddin Mansurov">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Samariddin Mansurov | Full Stack Developer & E-commerce Specialist">
+    <meta property="og:description" content="Samariddin Mansurov - Professional portfolio va raqamli yechimlar. Veb ilovalar va elektron tijorat tizimlari.">
+    <meta property="og:url" content="https://samariddin-mansurov.vercel.app">
+    <meta property="og:image" content="2025_04_16_19_21_09_2025_04_16_19_21_IMG_3726.JPG">
+
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Samariddin Mansurov | Full Stack Developer">
+    <meta property="twitter:description" content="Professional portfolio va elektron tijorat boshqaruvi.">
+
+    <!-- Google Structured Data (JSON-LD) for SEO ranking -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Samariddin Mansurov",
+      "jobTitle": "Full Stack Software Engineer & E-commerce Specialist",
+      "url": "https://samariddin-mansurov.vercel.app",
+      "image": "https://samariddin-mansurov.vercel.app/2025_04_16_19_21_09_2025_04_16_19_21_IMG_3726.JPG",
+      "sameAs": [
+        "https://t.me/samariddin_mansurov"
+      ],
+      "knowsAbout": [
+        "JavaScript", "C++", "Python", "OOP", "Shopify", "Amazon Marketplace", "Web Development", "SEO", "Digital Marketing"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+998979590017",
+        "contactType": "personal",
+        "email": "mansssurov777@gmail.com"
+      }
+    }
+    </script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Background Elements -->
+    <!-- Interactive Background Effects -->
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="cursor-glow" id="cursor-glow"></div>
 
     <!-- Header / Navbar -->
     <header id="header">
         <nav class="navbar glass">
-            <a href="#home" class="logo">S.Mansurov</a>
-            <ul class="nav-links">
-                <li><a href="#home">Asosiy</a></li>
-                <li><a href="#about">Men haqimda</a></li>
-                <li><a href="#skills">Ko'nikmalar</a></li>
-                <li><a href="#projects">Loyihalar</a></li>
-                <li><a href="#contact">Aloqa</a></li>
-            </ul>
-            <button class="menu-btn" aria-label="Menu" id="menu-btn">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <a href="#home" class="logo">Samariddin Mansurov</a>
+            <div class="nav-right">
+                <div class="lang-dropdown-wrapper" id="lang-dropdown-wrapper">
+                    <button class="lang-btn" id="lang-btn" aria-label="Language">
+                        <i class="ri-global-line"></i>
+                        <span>O'zbekcha</span>
+                        <i class="ri-arrow-down-s-line"></i>
+                    </button>
+                    <ul class="lang-dropdown-menu" id="lang-dropdown-menu">
+                        <li data-lang="uz"><img src="https://flagcdn.com/w20/uz.png" alt="Uzbek"> O'zbekcha</li>
+                        <li data-lang="en"><img src="https://flagcdn.com/w20/gb.png" alt="English"> English</li>
+                        <li data-lang="ru"><img src="https://flagcdn.com/w20/ru.png" alt="Russian"> Русский</li>
+                    </ul>
+                </div>
+                <button class="search-btn" id="search-btn" aria-label="Search">
+                    <i class="ri-search-line"></i>
+                </button>
+                <button class="menu-btn" aria-label="Menu" id="menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </nav>
     </header>
+
+    <!-- Slide-out Sidebar Navigation -->
+    <div class="sidebar-menu" id="sidebar-menu">
+        <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">
+            <i class="ri-close-line"></i>
+        </button>
+        <ul class="sidebar-links">
+            <li><a href="#home">Asosiy</a></li>
+            <li><a href="#about">Men haqimda</a></li>
+            <li><a href="#skills">Ko'nikmalar</a></li>
+            <li><a href="#directions">Faoliyat</a></li>
+            <li><a href="#principles">Tamoyillar</a></li>
+            <li><a href="#goals">Maqsad & Shior</a></li>
+            <li><a href="#contact">Aloqa</a></li>
+        </ul>
+    </div>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="search-overlay">
+        <button class="search-close" id="search-close" aria-label="Close search">
+            <i class="ri-close-line"></i>
+        </button>
+        <div class="search-box">
+            <div class="search-input-wrapper">
+                <i class="ri-search-line"></i>
+                <input type="text" id="search-input" placeholder="Saytdan qidirish..." autocomplete="off">
+            </div>
+            <div class="search-results" id="search-results"></div>
+        </div>
+    </div>
 
     <main>
         <!-- Hero Section -->
         <section id="home" class="hero section">
             <div class="container hero-content">
                 <div class="hero-text reveal">
-                    <p class="greeting">Salom, men</p>
-                    <h1 class="glitch" data-text="Samariddin Mansurov">Samariddin Mansurov</h1>
-                    <h2 class="role">Professional <span class="highlight">Dasturchiman</span></h2>
-                    <p class="summary">Kreativ g'oyalarni chiroyli va mukammal ishlaydigan dasturlarga aylantiraman. Raqamli olamda eng yaxshi foydalanuvchi tajribasini (UX/UI) yaratish ustida ishlayman.</p>
+                    <p class="greeting"><i class="ri-shake-hands-line"></i> Assalomu alaykum</p>
+                    <h1 class="glitch-text" data-text="Samariddin Mansurov">Samariddin Mansurov</h1>
+                    <h2 class="role">Full Stack Dasturchi & <span class="highlight">E-commerce Mutaxassisi</span></h2>
+                    <p class="summary">Insonlar va bizneslar uchun foydali, zamonaviy hamda ishonchli raqamli yechimlarni yaratish tarafdoriman. Dasturlashni muammolarni tahlil qilish va ularga samarali yechim topish san'ati deb bilaman.</p>
                     <div class="cta-group">
-                        <a href="#projects" class="btn btn-primary">Loyihalarni Ko'rish</a>
-                        <a href="#contact" class="btn btn-secondary glass">Bog'lanish</a>
+                        <a href="#contact" class="btn btn-primary"><i class="ri-mail-send-line"></i> Aloqaga Chiqish</a>
+                        <a href="#about" class="btn btn-secondary glass"><i class="ri-user-line"></i> Profilni Ko'rish</a>
                     </div>
                 </div>
                 <div class="hero-image reveal delay-2">
                     <div class="img-box glass">
+                        <div class="img-glow"></div>
                         <img src="2025_04_16_19_21_09_2025_04_16_19_21_IMG_3726.JPG" alt="Samariddin Mansurov" id="profile-img">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
+        <!-- About & Professional Profile Section -->
         <section id="about" class="about section">
-            <div class="container glass card reveal">
-                <h2 class="section-title">Men Haqimda</h2>
+            <div class="container">
+                <h2 class="section-title reveal">Men haqimda & Profil</h2>
                 <div class="about-grid">
-                    <div class="about-info">
-                        <p>Men Samariddin Mansurov, dasturlash olamiga qiziqishi yuqori bo'lgan professional dasturchiman. 1 yildan beri faol tarzda turli web loyihalar ustida ishlab kelmoqdaman.</p>
-                        <p>Ushbu qisqa vaqt ichida ko'plab qiyin va qiziqarli masalalarga yechim topib, o'z bilim va ko'nikmalarimni sezilarli darajada oshirdim. Men nafaqat kod yozishni, balki loyihaning arxitekturasi va dizayni haqida ham chuqur o'ylashni yoqtiraman. Maqsadim - har bir yaratayotgan dasturim tez, xavfsiz va foydalanuvchilar uchun qulay bo'lishidir.</p>
-                        <div class="experience-badge">
-                            <span class="years">1+</span>
-                            <span class="text">Yillik Tajriba</span>
-                        </div>
+                    <div class="about-left glass card reveal delay-1">
+                        <div class="card-icon"><i class="ri-user-3-line"></i></div>
+                        <h3>Kimman?</h3>
+                        <p>Men <strong>Samariddin Mansurov</strong> — zamonaviy texnologiyalar, dasturlash, elektron tijorat (E-commerce) va raqamli marketing yo‘nalishlariga qiziqadigan mutaxassisman.</p>
+                        <p>Mening asosiy maqsadim — insonlar va bizneslar uchun foydali, zamonaviy hamda ishonchli raqamli yechimlarni yaratishdir.</p>
+                        <p>Doimiy ravishda yangi texnologiyalarni o‘rganish, tajribamni oshirish va o‘zimni rivojlantirishga intilaman. Har bir loyiha men uchun yangi tajriba va yangi imkoniyat hisoblanadi.</p>
+                    </div>
+                    
+                    <div class="about-right glass card reveal delay-2">
+                        <div class="card-icon"><i class="ri-briefcase-line"></i></div>
+                        <h3>Professional Profil</h3>
+                        <p>Dasturiy ta'minot ishlab chiqish, elektron tijorat va biznes jarayonlarini optimallashtirish yo‘nalishlarida faoliyat yuritaman.</p>
+                        <p>Texnik bilimlarimni biznes tajribasi bilan uyg‘unlashtirib, foydalanuvchilar uchun qulay, tezkor va sifatli mahsulotlar yaratishga e'tibor beraman.</p>
+                        <p>Har qanday vazifaga mas'uliyat, aniqlik va kreativ yondashuv bilan yondashaman. Mening fikrimcha, muvaffaqiyatning eng muhim omillari — intizom, doimiy o‘rganish va sifatga bo‘lgan e'tibordir.</p>
                     </div>
                 </div>
             </div>
@@ -78,50 +172,211 @@
         <!-- Skills Section -->
         <section id="skills" class="skills section">
             <div class="container">
-                <h2 class="section-title reveal">Ko'nikmalar</h2>
-                <div class="skills-grid">
-                    <!-- Skill Items -->
-                    <div class="skill-card glass reveal delay-1">
-                        <h3>HTML & CSS</h3>
-                        <p>Mukammal struktura va responsiv zamonaviy dizayn (Glassmorphism, Flexbox, Grid).</p>
+                <h2 class="section-title reveal">Asosiy Ko'nikmalar</h2>
+                <p class="section-subtitle reveal">Bilim va tajribalarim yo'nalishlar bo'yicha</p>
+                
+                <div class="skills-wrapper glass card reveal delay-1">
+                    <!-- Tab Controls -->
+                    <div class="skills-tabs">
+                        <button class="tab-btn active" data-tab="programming">
+                            <i class="ri-code-box-line"></i> Dasturlash
+                        </button>
+                        <button class="tab-btn" data-tab="ecommerce">
+                            <i class="ri-shopping-cart-2-line"></i> Veb & E-commerce
+                        </button>
+                        <button class="tab-btn" data-tab="business">
+                            <i class="ri-line-chart-line"></i> Biznes
+                        </button>
+                        <button class="tab-btn" data-tab="tools">
+                            <i class="ri-tools-line"></i> Ishchi Vositalar
+                        </button>
                     </div>
-                    <div class="skill-card glass reveal delay-2">
-                        <h3>JavaScript</h3>
-                        <p>Interaktiv va dinamik web sahifalar, ES6+, asinxron kodlash.</p>
-                    </div>
-                    <div class="skill-card glass reveal delay-3">
-                        <h3>React / Vue (Frameworks)</h3>
-                        <p>Katta hajmdagi Single Page Applicationlar (SPA) qurish tajribasi.</p>
-                    </div>
-                    <div class="skill-card glass reveal delay-4">
-                        <h3>Backend asoslari</h3>
-                        <p>API lar bilan ishlash, Node.js va bazalar haqida tushuncha.</p>
+
+                    <!-- Tab Contents -->
+                    <div class="tab-container">
+                        <!-- Tab 1: Programming -->
+                        <div class="tab-content active" id="programming">
+                            <div class="skills-list">
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>JavaScript (ES6+)</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>C++</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Python asoslari</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Obyektga yo‘naltirilgan dasturlash (OOP)</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Asinxron dasturlash (Promise, Async/Await)</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Algoritmlar va ma'lumotlar tuzilmalari</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Muammolarni tahlil qilish va yechim ishlab chiqish</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Kodni optimallashtirish va xatolarni tuzatish</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Tab 2: E-commerce -->
+                        <div class="tab-content" id="ecommerce">
+                            <div class="skills-list">
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Shopify</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Amazon Marketplace</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Elektron tijorat boshqaruvi</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Raqamli marketing</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>SEO asoslari</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Mahsulot boshqaruvi</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Mijozlar bilan ishlash</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Tab 3: Business -->
+                        <div class="tab-content" id="business">
+                            <div class="skills-list">
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Savdo boshqaruvi</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>B2B savdo</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>B2C savdo</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Muzokara olib borish</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Strategik fikrlash</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Muammolarni samarali hal qilish</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Tab 4: Tools -->
+                        <div class="tab-content" id="tools">
+                            <div class="skills-list">
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Git</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>GitHub</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Visual Studio Code</span></div>
+                                <div class="skill-item"><i class="ri-checkbox-circle-line"></i> <span>Visual Studio</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="projects section">
+        <!-- Directions Section -->
+        <section id="directions" class="directions section">
             <div class="container">
-                <h2 class="section-title reveal">So'nggi Loyihalar</h2>
-                <div class="projects-grid">
-                    <div class="project-card glass reveal delay-1">
-                        <div class="project-img-placeholder">E-Commerce</div>
-                        <div class="project-info">
-                            <h3>Zamonaviy Onlayn Do'kon</h3>
-                            <p>Foydalanuvchilarga qulay interfeysga ega bo'lgan mukammal onlayn savdo platformasi.</p>
-                            <a href="#" class="btn btn-small btn-primary">Batafsil</a>
-                        </div>
+                <h2 class="section-title reveal">Faoliyat Yo'nalishlarim</h2>
+                <p class="section-subtitle reveal">Men ishlash va rivojlanishni maqsad qilgan asosiy sohalar</p>
+                
+                <div class="directions-grid">
+                    <div class="direction-card glass reveal delay-1">
+                        <div class="dir-icon"><i class="ri-computer-line"></i></div>
+                        <h3>Veb ilovalar yaratish</h3>
+                        <p>Zamonaviy, tezkor va xavfsiz Frontend hamda Backend tizimlarini loyihalash.</p>
                     </div>
-                    <div class="project-card glass reveal delay-2">
-                        <div class="project-img-placeholder">Dashboard</div>
-                        <div class="project-info">
-                            <h3>Admin Panel (Dashboard)</h3>
-                            <p>Ma'lumotlarni tahlil qilish va boshqarish uchun yaratilgan murakkab tizim.</p>
-                            <a href="#" class="btn btn-small btn-primary">Batafsil</a>
-                        </div>
+                    <div class="direction-card glass reveal delay-2">
+                        <div class="dir-icon"><i class="ri-settings-5-line"></i></div>
+                        <h3>Avtomatlashtirish tizimlari</h3>
+                        <p>Biznes va kundalik ishlarni yengillashtirish uchun scriptlar va tizimlar yaratish.</p>
                     </div>
+                    <div class="direction-card glass reveal delay-3">
+                        <div class="dir-icon"><i class="ri-store-2-line"></i></div>
+                        <h3>Elektron tijorat platformalari</h3>
+                        <p>Shopify, Amazon va maxsus onlayn do'konlar orqali savdoni boshqarish va integratsiya qilish.</p>
+                    </div>
+                    <div class="direction-card glass reveal delay-4">
+                        <div class="dir-icon"><i class="ri-robot-3-line"></i></div>
+                        <h3>Sun'iy intellekt texnologiyalari</h3>
+                        <p>AI yordamida ishlarni jadallashtirish va aqlli yechimlarni biznesga joriy qilish.</p>
+                    </div>
+                    <div class="direction-card glass reveal delay-1">
+                        <div class="dir-icon"><i class="ri-bubble-chart-line"></i></div>
+                        <h3>Biznesni raqamlashtirish</h3>
+                        <p>An'anaviy biznes jarayonlarini avtomatlashtirish va raqamli bozorga olib chiqish.</p>
+                    </div>
+                    <div class="direction-card glass reveal delay-2">
+                        <div class="dir-icon"><i class="ri-terminal-window-line"></i></div>
+                        <h3>Dasturiy mahsulotlar</h3>
+                        <p>Foydalanuvchilar ehtiyojlaridan kelib chiqqan holda maxsus dasturiy ta'minotlar ishlab chiqish.</p>
+                    </div>
+                    <div class="direction-card glass reveal delay-3">
+                        <div class="dir-icon"><i class="ri-lightbulb-line"></i></div>
+                        <h3>Zamonaviy IT yechimlari</h3>
+                        <p>Eng so'nggi texnologik standartlarga mos ravishda arxitektura va xizmatlarni yo'lga qo'yish.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Principles Section -->
+        <section id="principles" class="principles section">
+            <div class="container">
+                <h2 class="section-title reveal">Ishlash Tamoyillarim</h2>
+                <p class="section-subtitle reveal">Mening kasbiy va shaxsiy faoliyatim asoslangan qadriyatlar</p>
+                
+                <div class="principles-grid">
+                    <div class="principle-card glass reveal delay-1">
+                        <span class="p-num">01</span>
+                        <h3>Sifat</h3>
+                        <p>Har bir loyihada eng yuqori sifat standartlariga rioya qilish.</p>
+                    </div>
+                    <div class="principle-card glass reveal delay-2">
+                        <span class="p-num">02</span>
+                        <h3>Mas'uliyat</h3>
+                        <p>Topshirilgan vazifalarni o'z vaqtida va to'liq yakunlash.</p>
+                    </div>
+                    <div class="principle-card glass reveal delay-3">
+                        <span class="p-num">03</span>
+                        <h3>Halollik</h3>
+                        <p>Mijozlar, hamkorlar va jamoa a'zolari bilan shaffof munosabat.</p>
+                    </div>
+                    <div class="principle-card glass reveal delay-4">
+                        <span class="p-num">04</span>
+                        <h3>Intizom</h3>
+                        <p>Muntazam mehnat, rejalashtirish va tizimli ishlash.</p>
+                    </div>
+                    <div class="principle-card glass reveal delay-1">
+                        <span class="p-num">05</span>
+                        <h3>Doimiy rivojlanish</h3>
+                        <p>Har kuni yangi bilim va ko'nikmalarni o'rganib borish.</p>
+                    </div>
+                    <div class="principle-card glass reveal delay-2">
+                        <span class="p-num">06</span>
+                        <h3>Innovatsion fikrlash</h3>
+                        <p>Muammolarga nostandart va ijodiy yondashuvlarni topish.</p>
+                    </div>
+                    <div class="principle-card glass reveal delay-3">
+                        <span class="p-num">07</span>
+                        <h3>Jamoa bilan samarali ishlash</h3>
+                        <p>Birgalikdagi g'oyalar va fikr almashish orqali yuqori natijalar.</p>
+                    </div>
+                    <div class="principle-card glass reveal delay-4">
+                        <span class="p-num">08</span>
+                        <h3>Natijaga yo‘naltirilganlik</h3>
+                        <p>Faqatgina jarayon emas, balki aniq va o'lchanadigan muvaffaqiyatga intilish.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Goals, Interests & Motto Section -->
+        <section id="goals" class="goals section">
+            <div class="container">
+                <div class="goals-grid">
+                    <!-- Left: Interests -->
+                    <div class="interests-box glass card reveal delay-1">
+                        <div class="card-icon"><i class="ri-heart-3-line"></i></div>
+                        <h3>Qiziqishlarim</h3>
+                        <ul class="interests-list">
+                            <li><i class="ri-boxing-line"></i> Boks bilan shug'ullanish</li>
+                            <li><i class="ri-robot-line"></i> Sun'iy intellekt va yangi texnologiyalar</li>
+                            <li><i class="ri-book-open-line"></i> Biznes va startaplar haqida mutolaa</li>
+                            <li><i class="ri-graduation-cap-line"></i> Dasturlash bo‘yicha yangi bilimlarni egallash</li>
+                        </ul>
+                    </div>
+
+                    <!-- Right: Goal -->
+                    <div class="goal-box glass card reveal delay-2">
+                        <div class="card-icon"><i class="ri-compass-discover-line"></i></div>
+                        <h3>Mening Maqsadim</h3>
+                        <p>Kelajakdagi asosiy maqsadim — xalqaro darajadagi malakali dasturiy ta'minot muhandisi va zamonaviy texnologiyalar sohasida muvaffaqiyatli tadbirkor bo‘lish.</p>
+                        <p>Innovatsion g‘oyalarni amaliyotga tatbiq etish, insonlar va bizneslar uchun foydali bo‘lgan raqamli mahsulotlar yaratish hamda bilim va tajribamni doimiy ravishda oshirib borishni o‘z oldimga maqsad qilganman.</p>
+                        <p>Texnologiyalar yordamida murakkab muammolarni sodda va samarali yechimlarga aylantirish, zamonaviy dasturiy mahsulotlar ishlab chiqish va xalqaro miqyosdagi loyihalarda ishtirok etish mening uzoq muddatli maqsadlarimdan biridir.</p>
+                    </div>
+                </div>
+
+                <!-- Motto Banner -->
+                <div class="motto-banner glass reveal delay-3">
+                    <div class="quote-icon"><i class="ri-double-quotes-l"></i></div>
+                    <blockquote>
+                        "Bilim — imkoniyatlarni ochadigan kalit, intizom esa ularni muvaffaqiyatga aylantiradigan kuchdir."
+                    </blockquote>
+                    <cite>— Shiorim</cite>
                 </div>
             </div>
         </section>
@@ -130,8 +385,37 @@
         <section id="contact" class="contact section">
             <div class="container glass card reveal">
                 <h2 class="section-title">Bog'lanish</h2>
-                <div class="contact-content">
-                    <p class="contact-text">Yangi g'oyalar yoki loyihalar bo'yicha hamkorlik qilishga doim tayyorman. Men bilan bog'lanish uchun quyidagi formani to'ldiring.</p>
+                <p class="contact-text">Yangi loyihalar, hamkorlik yoki biznesni raqamlashtirish bo‘yicha savollaringiz bo‘lsa, to'g'ridan-to'g'ri bog'laning yoki xabar qoldiring.</p>
+                
+                <div class="contact-grid">
+                    <!-- Left: Direct contacts -->
+                    <div class="contact-info-list">
+                        <a href="tel:+998979590017" class="contact-info-card glass">
+                            <div class="c-icon"><i class="ri-phone-fill"></i></div>
+                            <div class="c-details">
+                                <span class="c-label">Telefon</span>
+                                <h4>+998 (97) 959-00-17</h4>
+                            </div>
+                        </a>
+                        
+                        <a href="https://t.me/samariddin_mansurov" target="_blank" rel="noopener" class="contact-info-card glass">
+                            <div class="c-icon"><i class="ri-telegram-fill"></i></div>
+                            <div class="c-details">
+                                <span class="c-label">Telegram</span>
+                                <h4>@samariddin_mansurov</h4>
+                            </div>
+                        </a>
+                        
+                        <a href="mailto:mansssurov777@gmail.com" class="contact-info-card glass">
+                            <div class="c-icon"><i class="ri-mail-fill"></i></div>
+                            <div class="c-details">
+                                <span class="c-label">E-pochta</span>
+                                <h4>mansssurov777@gmail.com</h4>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Right: Form -->
                     <form id="contact-form" class="contact-form">
                         <div class="form-group">
                             <input type="text" id="name" placeholder="Ismingiz" required>
@@ -142,7 +426,7 @@
                         <div class="form-group">
                             <textarea id="message" rows="5" placeholder="Xabaringiz..." required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Yuborish</button>
+                        <button type="submit" class="btn btn-primary"><i class="ri-send-plane-fill"></i> Xabarni Yuborish</button>
                     </form>
                 </div>
             </div>
@@ -154,9 +438,9 @@
         <div class="container">
             <p>&copy; 2026 Samariddin Mansurov. Barcha huquqlar himoyalangan.</p>
             <div class="social-links">
-                <a href="#" aria-label="GitHub">GitHub</a>
-                <a href="#" aria-label="LinkedIn">LinkedIn</a>
-                <a href="#" aria-label="Telegram">Telegram</a>
+                <a href="#" aria-label="GitHub"><i class="ri-github-fill"></i> GitHub</a>
+                <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-box-fill"></i> LinkedIn</a>
+                <a href="https://t.me/samariddin_mansurov" target="_blank" rel="noopener" aria-label="Telegram"><i class="ri-telegram-fill"></i> Telegram</a>
             </div>
         </div>
     </footer>
